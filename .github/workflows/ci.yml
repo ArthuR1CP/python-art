@@ -1,4 +1,4 @@
-name: Build & Test Python App
+name: CI
 
 on:
   push:
@@ -7,18 +7,16 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
 
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
@@ -27,6 +25,3 @@ jobs:
 
       - name: Run tests
         run: PYTHONPATH=. python -m pytest -v
-
-      - name: Run app
-        run: python main.py
